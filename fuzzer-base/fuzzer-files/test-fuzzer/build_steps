@@ -1,0 +1,22 @@
+#!/bin/bash
+
+#### Build environment setup
+cp $BUILD_FILES/examples/* /root/fuzz_in/
+cd /root
+
+#### ASAN Setup: uncomment these lines to fuzz with ASAN
+mkdir /root/TMP_CLANG
+cd /root/TMP_CLANG
+git clone https://chromium.googlesource.com/chromium/src/tools/clang
+cd ..
+TMP_CLANG/clang/scripts/update.py
+cd /root
+
+#### Fuzzer setup: put your code here
+git clone https://github.com/puma/puma.git
+rm /root/puma/ext/puma_http11/puma_http11.c
+cp $BUILD_FILES/puma_http11.c ~/puma/ext/puma_http11/puma_http11.c
+cd /root/puma/ext/puma_http11
+/root/afl/afl-clang-fast io_buffer.c mini_ssl.c ext_help.h http11_parser.c puma_http11.c $(cat /root/config/afl-ruby-flags)
+cd /root
+cp $BUILD_FILES/http.dict /root/http.dict

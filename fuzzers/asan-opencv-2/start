@@ -1,0 +1,4 @@
+#!/bin/bash
+ source /root/fuzzer-files/asan-opencv-2/environment
+ export PATH=$PATH:/root/afl
+/root/fuzzer-files/base/start $1

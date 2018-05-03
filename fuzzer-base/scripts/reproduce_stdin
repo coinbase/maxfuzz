@@ -1,0 +1,3 @@
+#! /bin/bash
+
+cat /root/fuzz_in/input | $1

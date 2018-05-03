@@ -1,0 +1,9 @@
+source /root/fuzzer-files/base/environment
+#### Required for build steps:
+export BUILD_FILES="/root/fuzzer-files/png-fuzzer/"
+
+#### Required for run-time
+export FUZZER_NAME="png-fuzzer"
+
+####Fuzzer Setup:
+export GO_FUZZ_ZIP=$BUILD_FILES/png-fuzz.zip

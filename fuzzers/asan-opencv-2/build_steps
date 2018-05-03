@@ -1,0 +1,37 @@
+#!/bin/bash
+
+set -x
+set -e
+
+cd /root
+wget https://github.com/opencv/opencv/archive/3.3.1.tar.gz
+
+#### Build environment setup
+cp $BUILD_FILES/examples/* /root/fuzz_in/
+cp $BUILD_FILES/harness.cpp /root/harness.cpp
+cd /root
+
+#### ASAN Setup: uncomment these lines to fuzz with ASAN
+if [ ! -e /root/TMP_CLANG ]; then
+mkdir -p /root/TMP_CLANG
+cd /root/TMP_CLANG
+git clone https://chromium.googlesource.com/chromium/src/tools/clang
+cd ..
+TMP_CLANG/clang/scripts/update.py
+cd /root
+fi
+
+#### Fuzzer setup: put your code here
+# Install OpenCV
+tar -xvf 3.3.1.tar.gz
+cd /root/opencv-3.3.1
+mkdir -p debug && cd debug
+cmake -v -DCMAKE_C_COMPILER=/root/afl/afl-gcc -DCMAKE_CXX_COMPILER=/root/afl/afl-g++ -DCMAKE_BUILD_TYPE=RELEASE -DCMAKE_INSTALL_PREFIX=/usr/local ..
+make
+make install
+#cd $BUILD_FILES/opencv/debug
+#CC=/root/afl/afl-gcc CXX=/root/afl/afl-g++ make install
+export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libasan.so.2:$LD_PRELOAD
+
+cd /root
+/root/afl/afl-g++ harness.cpp -Wall -g `pkg-config --cflags --libs opencv`

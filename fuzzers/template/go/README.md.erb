@@ -1,0 +1,9 @@
+# Setting up your new fuzzer
+
+1) Place the gofuzz zip file into this directory - it will be copied into the docker container.
+
+2) Edit `environment`, which sets all environment variables for the Docker
+container. You must ensure GO_FUZZ_ZIP is set.
+
+3) To run the fuzzer, call: `/root/fuzzer-files/<%= @fuzzer_name %>/start` from
+within the docker container

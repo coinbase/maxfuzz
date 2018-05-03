@@ -1,0 +1,19 @@
+#!/bin/bash
+if [[ -z "$GIT_SHA" ]];
+then echo "GIT_SHA ENV var is null" && exit 1
+fi
+if [ "$1" = "reproduce" ]; then
+  echo "Running $FUZZER_NAME reproducer, revision $GIT_SHA"
+else
+  echo "Running fuzzer $FUZZER_NAME, revision $GIT_SHA"
+fi
+$BUILD_FILES/build_steps
+if [ "$1" = "reproduce" ]; then
+  ASAN_OPTIONS="symbolize=1:detect_leaks=0:abort_on_error=1" MAXFUZZ_ENV=reproducer /usr/bin/supervisord -c /root/config/supervisord/reproduce_supervisord.conf
+elif [ "$1" = "gofuzz" ]; then
+  $GOBIN/pre-sync
+  MAXFUZZ_ENV=fuzzer /usr/bin/supervisord -c /root/config/supervisord/go_fuzz_supervisord.conf
+else
+  $GOBIN/pre-sync
+  MAXFUZZ_ENV=fuzzer AFL_IO_OPTIONS=$(cat /root/config/afl-io-options) /usr/bin/supervisord -c /root/config/supervisord/fuzz_supervisord.conf
+fi

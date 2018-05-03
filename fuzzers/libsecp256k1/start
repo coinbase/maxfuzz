@@ -1,0 +1,3 @@
+#!/bin/bash
+source /root/fuzzer-files/libsecp256k1/environment
+/root/fuzzer-files/base/start

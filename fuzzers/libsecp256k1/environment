@@ -1,0 +1,17 @@
+source /root/fuzzer-files/base/environment
+#### Required for build steps:
+export BUILD_FILES="/root/fuzzer-files/libsecp256k1/"
+
+#### Required for run-time
+export FUZZER_NAME="afl-asan-libsecp256k1"
+
+#### ASAN Setup: uncomment these to fuzz with ASAN
+export AFL_USE_ASAN="1"
+export ASAN_OPTIONS="symbolize=0:detect_leaks=1:abort_on_error=1"
+export ASAN_SYMBOLIZER_PATH="/root/third_party/llvm-build/Release+Asserts/bin/llvm-symbolizer"
+
+#### AFL Settings: edit these to setup fuzzer
+export AFL_FUZZ="/root/afl/afl-fuzz"
+export AFL_BINARY="$BUILD_FILES/a.out"
+export AFL_MEMORY_LIMIT=100000000
+export AFL_OPTIONS=""

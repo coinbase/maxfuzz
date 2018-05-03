@@ -1,0 +1,17 @@
+source /root/fuzzer-files/base/environment
+#### Required for build steps:
+export BUILD_FILES="/root/fuzzer-files/vulnerable"
+
+#### Required for run-time
+export FUZZER_NAME="afl-vulnerable"
+
+#### ASAN Setup: uncomment these to fuzz with ASAN
+export AFL_USE_ASAN="1"
+export ASAN_OPTIONS="symbolize=0:detect_leaks=0:abort_on_error=1"
+export ASAN_SYMBOLIZER_PATH="/root/third_party/llvm-build/Release+Asserts/bin/llvm-symbolizer"
+
+#### AFL Settings: edit these to setup fuzzer
+export AFL_FUZZ="/root/afl/afl-fuzz" # The afl fuzzer to use. For python, change this to "py-afl-fuzz"
+export AFL_BINARY="$BUILD_FILES/target"
+export AFL_MEMORY_LIMIT=none # in MB, or use "none" for infinite
+export AFL_OPTIONS="" # extra stuff

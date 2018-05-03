@@ -1,0 +1,24 @@
+#!/bin/bash
+
+#### Build environment setup
+cp $BUILD_FILES/examples/* /root/fuzz_in/
+cd /root
+
+#### ASAN Setup: uncomment these lines to fuzz with ASAN
+mkdir /root/TMP_CLANG
+cd /root/TMP_CLANG
+git clone https://chromium.googlesource.com/chromium/src/tools/clang
+cd ..
+TMP_CLANG/clang/scripts/update.py
+cd /root
+
+#### Fuzzer setup:
+cd $BUILD_FILES
+export CC=/root/afl/afl-gcc
+export CXX=/root/afl/afl-g++
+./autogen.sh
+./configure
+make
+make install
+export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
+/root/afl/afl-gcc fuzz.c -lsecp256k1 -lgmp -I. -I./src

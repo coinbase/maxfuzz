@@ -1,0 +1,3 @@
+#!/bin/bash
+ source /root/fuzzer-files/vulnerable/environment
+/root/fuzzer-files/base/start $1

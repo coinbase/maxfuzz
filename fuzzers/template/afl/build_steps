@@ -1,0 +1,19 @@
+#!/bin/bash
+
+#### Build environment setup
+cp $BUILD_FILES/examples/* /root/fuzz_in/
+cd /root
+
+#### Sanitizet Setup: uncomment these lines to download clang tools
+#### Gives access too LLVM Symbolizer, needed for fuzzing with sanitizers
+# mkdir /root/TMP_CLANG
+# cd /root/TMP_CLANG
+# git clone https://chromium.googlesource.com/chromium/src/tools/clang
+# cd ..
+# TMP_CLANG/clang/scripts/update.py
+# cd /root
+
+#### Fuzzer setup: put your code here
+# Note: compiler flags for building C-based harnesses for ruby libs are in: /root/config/afl-ruby-flags
+# Example: /root/afl/afl-clang-fast harness.c $(cat /root/config/afl-ruby-flags)
+

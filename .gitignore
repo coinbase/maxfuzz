@@ -1,0 +1,9 @@
+*.swp
+sync
+*.DS_Store
+fuzzer-base/node_modules
+fuzzer-base/package-lock.json
+fuzzer-base/sync
+fuzzer-base/bin
+fuzzer-base/fuzz_out
+*/vendor

@@ -1,0 +1,41 @@
+version: '3'
+services:
+  redis:
+    image: redis:3.2.4
+    ports:
+      - "6379"
+  sidecar:
+    build: .
+    ports:
+      - "3000:8888"
+    command: /usr/bin/supervisord -c /root/config/supervisord/sidecar_supervisord.conf
+  # afl_test:
+  #   build: .
+  #   command: /root/fuzzer-files/test-fuzzer/start
+  #   volumes:
+  #     - ${SYNC_DIR}:/root/sync
+  #   environment:
+  #     - MAXFUZZ_ENABLE_S3=0
+  #     - REDIS_QUEUE_URL=redis:6379
+  #   links:
+  #     - redis
+  # afl_test_repro:
+  #   build: .
+  #   command: /root/fuzzer-files/test-fuzzer/start reproduce
+  #   volumes:
+  #     - ${SYNC_DIR}:/root/sync
+  #   environment:
+  #     - MAXFUZZ_ENABLE_S3=0
+  #     - REDIS_QUEUE_URL=redis:6379
+  #   links:
+  #     - redis
+  gofuzzer:
+    build: .
+    volumes:
+      - ${SYNC_DIR}:/root/sync
+    environment:
+      - MAXFUZZ_ENABLE_S3=0
+      - REDIS_QUEUE_URL=redis:6379
+    links:
+      - redis
+    command: /root/fuzzer-files/png-fuzzer/start
