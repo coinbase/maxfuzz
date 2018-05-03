@@ -8,7 +8,7 @@ Taking some cues from [Google's ClusterFuzz](https://github.com/google/oss-fuzz/
 
 ## 🚀 Getting Started
 
-This guide assumes you have Docker, docker-compose and make installed. For more on getting set up, please check out our [Development Environment Setup wiki page](). Most of the bootstrapping and deployment process is done through a [Makefile]() for simplicity and repeatability.
+This guide assumes you have Docker, docker-compose and make installed. For more on getting set up, please check out our [Development Environment Setup wiki page](https://github.com/coinbase/maxfuzz/wiki/Environment-Setup). Most of the bootstrapping and deployment process is done through a [Makefile](https://github.com/coinbase/maxfuzz/blob/master/Makefile) for simplicity and repeatability.
 
 ## 🐞 Find your first bug
 
@@ -22,15 +22,15 @@ Upon deploying the fuzzer locally you should see some crashes appear fairly quic
 
 As these crashes are uncovered by AFL, you should see corresponding logs from the Docker containers in the docker-compose view.
 
-For more details on how to use Maxfuzz, please check out our [How to Use Maxfuzz wiki page]()
+For more details on how to use Maxfuzz, please check out our [How to Use Maxfuzz wiki page](https://github.com/coinbase/maxfuzz/wiki/How-to-use-Maxfuzz)
 
 ## 👷‍ Development
 
 Contribution to this project is extremely welcome!
 
-Please direct all Issues/Pull Requests to the [Bleeding Edge Repository]() - the [Coinbase Repository]() updates from there occasionally.
+Please direct all Issues/Pull Requests to the [Bleeding Edge Repository](https://github.com/everestmz/maxfuzz) - the [Coinbase Repository](https://github.com/coinbase/maxfuzz) will pull stable releases from there.
 
 To get started, check out our wiki pages on:
-- [Setting up your Development Environment]()
-- [Architecture & Testing]()
-- [Fuzzer Setup & Configuration]()
+- [Setting up your Development Environment](https://github.com/coinbase/maxfuzz/wiki/Environment-Setup)
+- [Architecture & Testing](https://github.com/coinbase/maxfuzz/wiki/Architecture-&-Testing)
+- [Fuzzer Setup & Configuration](https://github.com/coinbase/maxfuzz/wiki/How-to-use-Maxfuzz#%EF%B8%8F-fuzzer-setup--configuration)
