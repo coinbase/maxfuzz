@@ -12,9 +12,7 @@ This guide assumes you have Docker, docker-compose and make installed. For more 
 
 ## 🐞 Find your first bug
 
-First, build the base Maxfuzz Docker image: `make build`
-
-Then spin up a local instance of Maxfuzz, running some [sample fuzzers](fuzzers/README.md): `make deploy-dev`
+First, spin up a local instance of Maxfuzz, running some [sample fuzzers](fuzzers/README.md): `make deploy-stable`
 
 This launches a basic fuzzer that fuzzes some vulnerable C code, which can be found in `./fuzzers/vulnerable/`.
 

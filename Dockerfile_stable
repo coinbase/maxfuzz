@@ -1,5 +1,5 @@
 # Dockerfile using stable Maxfuzz image
-# TODO: FROM Image on docker hub
+FROM coinbase/maxfuzz@sha256:f633dc8c2aff035f3e7668c83133dbb6fa7e9bf4372e6a28c2d8f86177385af6
 
 WORKDIR /root/fuzzer-files
 COPY ./fuzzers/ ./
